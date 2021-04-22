@@ -8,7 +8,6 @@ def index():
     View root page function that returns the index page and its data
     """
 
-    top_headlines = get_news()
     title = "Welcome to Pitches App"
 
     return render_template(
