@@ -5,6 +5,8 @@ class Config:
     """
     General configuration parent class
     """
+    # Data base config
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://obafemi:Bentamjay1@localhost/pitches'
 
 
 
