@@ -11,8 +11,20 @@
 
 {% block content %}
 
-<div class="container">
-  <h1>Working</h1>
+<div class="container pt-5">
+  {% for pitch in pitches %}
+  <div class="card mb-4">
+    <div class="card-header">
+      {{pitch.title}}
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p>{{pitch.description}}</p>
+        <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+      </blockquote>
+    </div>
+  </div>
+  {% endfor %}
 </div>
 
 
