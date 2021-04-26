@@ -5,15 +5,29 @@
 
 {% block styles%}
     {{ super() }}
-    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
     
 {% endblock %}
 
 {% block content %}
-<div class="container text-center pt-5">
-  {% for pitch in pitches %}
-    <a href="/pitches/{{pitch.category}}"><button class="btn btn-dark">{{pitch.category}}</button></a>
-  {% endfor %}
+<div class="text-center pt-5">
+  <h1>Keep Pitching Like Peaches</h1>
+</div>
+<div class="container  pt-5">
+  <ul class="nav justify-content-center">
+    <li class="nav-item">
+      <a class="nav-link" href="/">All Pitches</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/pitches/Pickup Lines">Pickup Lines</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/pitches/Presentation">Presentation</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/pitches/Interview">Interview</a>
+    </li>    
+  </ul>
 </div>
 <div class="container pt-5">
   {% for pitch in pitches %}
@@ -28,8 +42,9 @@
       </blockquote>
     </div>
     <div class="card-header">
-      <button class="btn">Upvote 0</button>
-      <button class="btn">Downvote 0</button>
+      <button class="btn"><a href="{{url_for('main.upvote',id = pitch.id)}}">Upvote {{pitch.upvote.count()}}</a></button>
+      <button class="btn"><a href="{{url_for('main.downvote',id = pitch.id)}}">downvote {{pitch.downvote.count()}}</a></button>
+      <button class="btn"><a href="{{url_for('main.downvote',id = pitch.id)}}">Comment</a></button>
     </div>
   </div>
   {% endfor %}

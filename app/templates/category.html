@@ -5,16 +5,12 @@
 
 {% block styles%}
     {{ super() }}
-    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
     
 {% endblock %}
 
 {% block content %}
-<div class="container text-center pt-5">
-  {% for pitch in pitches %}
-    <a href="/pitches/{{pitch.category}}"><button class="btn btn-dark">{{pitch.category}}</button></a>
-  {% endfor %}
-</div>
+{{macro.displayCategoryList()}}
 <div class="container pt-5">
   {% for pitch in pitches %}
   <div class="card mb-4">
