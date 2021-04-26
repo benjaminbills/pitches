@@ -14,6 +14,7 @@ def index():
     return render_template(
         "index.html", pitches = pitches
     )
+    
 @main.route('/pitches/new/', methods = ['GET', 'POST'])
 @login_required
 def new_pitch():
@@ -35,3 +36,10 @@ def new_pitch():
         db.session.commit()
         return redirect(url_for('main.index'))
     return render_template('pitch.html',form=form)
+
+@main.route('/pitches/<category>')
+@login_required
+def category(category):
+    pitches = Pitch.query.filter_by(category=category).all()
+    print(pitches)
+    return render_template('category.html', pitches = pitches)
