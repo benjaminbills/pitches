@@ -105,6 +105,18 @@ class Downvote(db.Model):
     def __repr__(self):
         return f'{self.user_id}:{self.pitch_id}'
 
+
+class Comment(db.Model):
+    __tablename__='comments'
+    
+    id = db.Column(db.Integer,primary_key=True)
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable= False)
+    description = db.Column(db.Text)
+
+    
+    def __repr__(self):
+        return f"Comment : id: {self.id} comment: {self.description}"
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
