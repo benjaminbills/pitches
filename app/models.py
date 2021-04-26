@@ -20,7 +20,7 @@ class User(UserMixin,db.Model):
     password_hash = db.Column(db.String(255))
     upvote = db.relationship('Upvote',backref='user',lazy='dynamic')
     downvote = db.relationship('Downvote',backref='user',lazy='dynamic')
-    
+    comment = db.relationship('Comment',backref='user',lazy='dynamic')
 
     @property
     def password(self):

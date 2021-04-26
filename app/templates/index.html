@@ -44,7 +44,7 @@
     <div class="card-header">
       <button class="btn"><a href="{{url_for('main.upvote',id = pitch.id)}}">Upvote {{pitch.upvote.count()}}</a></button>
       <button class="btn"><a href="{{url_for('main.downvote',id = pitch.id)}}">downvote {{pitch.downvote.count()}}</a></button>
-      <button class="btn"><a href="{{url_for('main.downvote',id = pitch.id)}}">Comment</a></button>
+      <button class="btn"><a href="{{url_for('main.new_comment',pitch_id = pitch.id)}}">Comment</a></button>
     </div>
   </div>
   {% endfor %}

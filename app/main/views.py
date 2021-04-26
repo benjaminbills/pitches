@@ -1,8 +1,8 @@
 from flask import render_template, request, redirect, url_for, flash
 from . import main
 from flask_login import login_required, current_user
-from .forms import PitchForm
-from ..models import Pitch,User,Upvote,Downvote
+from .forms import PitchForm, CommentForm
+from ..models import Pitch,User,Upvote,Downvote, Comment
 from .. import db
 @main.route("/")
 def index():
@@ -76,3 +76,18 @@ def downvote(id):
     new_downvote = Downvote(user = current_user, pitch_id=id)
     new_downvote.save()
     return redirect(url_for('main.index',id = id))
+
+@main.route('/comment/new/<int:pitch_id>', methods = ['GET','POST'])
+@login_required
+def new_comment(pitch_id):
+    form = CommentForm()
+    pitch=Pitch.query.get(pitch_id)
+    print(pitch)
+    if form.validate_on_submit():
+        description = form.description.data
+        new_comment = Comment(description = description, user_id = current_user._get_current_object().id, pitch_id = pitch_id)
+        db.session.add(new_comment)
+        db.session.commit()
+        return redirect(url_for('.new_comment', pitch_id= pitch_id))
+    all_comments = Comment.query.filter_by(pitch_id = pitch_id).all()
+    return render_template('comments.html', form = form, comment = all_comments, pitch = pitch )

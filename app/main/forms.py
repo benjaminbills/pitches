@@ -12,3 +12,5 @@ class PitchForm(FlaskForm):
 
  category = SelectField('category', choices=[('Presentation','Presentation'),('Pickup Lines','Pick Lines'),('Interview','Interview')], validators=[Required()])
 
+class CommentForm(FlaskForm):
+  description = TextAreaField('Add comment',validators=[Required()])
