@@ -10,7 +10,6 @@ def index():
     View root page function that returns the index page and its data
     """
     pitches = Pitch.query.filter_by()
-    print(pitches)
     return render_template(
         "index.html", pitches = pitches
     )
@@ -19,12 +18,6 @@ def index():
 @login_required
 def new_pitch():
     form = PitchForm()
-    print(form.errors)
-    if form.is_submitted():
-        print('submitted')
-    if form.validate():
-        print("valid")
-    print(form.errors)
     if form.validate_on_submit():
         description = form.description.data
         title = form.title.data
@@ -39,7 +32,6 @@ def new_pitch():
 @main.route('/pitches/<category>')
 def category(category):
     pitches = Pitch.query.filter_by(category=category).all()
-    print(pitches)
     return render_template('category.html', pitches = pitches)
 
 
@@ -80,7 +72,6 @@ def downvote(id):
 def new_comment(pitch_id):
     form = CommentForm()
     pitch=Pitch.query.get(pitch_id)
-    print(pitch)
     if form.validate_on_submit():
         description = form.description.data
         new_comment = Comment(description = description, user_id = current_user._get_current_object().id, pitch_id = pitch_id)
@@ -95,7 +86,6 @@ def profile(username):
     user = User.query.filter_by(username = username).first()
     user_id = current_user._get_current_object().id
     pitches = Pitch.query.filter_by(owner_id=user_id).all()
-    print(pitches)
     if user is None:
         abort(404)
 
