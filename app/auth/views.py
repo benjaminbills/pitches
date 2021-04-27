@@ -3,30 +3,30 @@ from flask_login import login_user, login_required, logout_user
 from ..models import User
 from . import auth
 from .. import db
+from ..email import mail_message
+from .forms import LoginForm,RegistrationForm
 
 @auth.route('/login',methods=['GET','POST'])
 def login():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
-        user = User.query.filter_by(email=email).first()
-        if user is not None and user.verify_password(password):
-            login_user(user, remember=True)
+    login_form = LoginForm()
+    if login_form.validate_on_submit():
+        user = User.query.filter_by(email=login_form.email.data).first()
+        if user is not None and user.verify_password(login_form.password.data):
+            login_user(user, login_form.remember.data)
             return redirect(request.args.get('next') or url_for('main.index'))
-        print('Invalid username or Password')
-    return render_template('auth/login.html')
+        flash('Invalid username or Password')
+    return render_template('auth/login.html', login_form = login_form)
 
 @auth.route('/register',methods = ["GET","POST"])
 def register():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
-        username = request.form.get('username')
-        user = User(email = email, password = password, username = username)
+    register_form = RegistrationForm()
+    if register_form.validate_on_submit():
+        user = User(email = register_form.email.data, password = register_form.password.data, username =register_form.username.data)
         db.session.add(user)
         db.session.commit()
+        mail_message("Welcome to Pitches","email/welcome_user",user.email,user=user )
         return redirect(url_for('auth.login'))
-    return render_template('auth/register.html')
+    return render_template('auth/register.html', register_form=register_form)
 
 @auth.route('/logout')
 @login_required

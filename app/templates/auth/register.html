@@ -6,19 +6,65 @@
 {% endblock %}
 {% block content %}
 <div class="container pt-5">
+  {% for message in get_flashed_messages() %}
+        <div class="alert alert-danger">
+        {{ message }}
+        </div>
+  {% endfor %}
   <form method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <div class="mb-3">
+    <!-- <div class="mb-3">
       <label for="username" class="form-label">Username</label>
-      <input type="text" name="username" class="form-control">
-    </div>
+      {{register_form.username(class_='form-control')}}
+    </div> -->
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Username</label>
+      {% if register_form.username.errors %}
+
+      {{register_form.username(class="form-control is-invalid")}}
+          {% for error in register_form.username.errors %}
+              <div class="invalid-feedback">
+                  <span>{{error}}</span>
+              </div>
+          {% endfor %}
+      {% else %}
+      {{register_form.username(class="form-control")}}
+      {% endif %}
+    </div >
+    <!-- <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      {{register_form.email(class_='form-control')}}
+    </div> -->
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    </div>
+      {% if register_form.email.errors %}
+
+      {{register_form.email(class="form-control is-invalid")}}
+          {% for error in register_form.email.errors %}
+              <div class="invalid-feedback">
+                  <span>{{error}}</span>
+              </div>
+          {% endfor %}
+      {% else %}
+      {{register_form.email(class="form-control")}}
+      {% endif %}
+    </div >
     <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+      <label for="exampleInputEmail1" class="form-label">Password</label>
+      {% if register_form.password.errors %}
+      {{register_form.password(class="form-control is-invalid")}}
+          {% for error in register_form.password.errors %}
+              <div class="invalid-feedback">
+                  <span>{{error}}</span>
+              </div>
+          {% endfor %}
+      {% else %}
+      {{register_form.password(class="form-control")}}
+      {% endif %}
+    </div >
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+      {{register_form.password_confirm(class_='form-control')}}
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>

@@ -7,16 +7,24 @@
 
 {% block content %}
 <div class="container pt-5">
-
+  {% for message in get_flashed_messages() %}
+    <div class="alert alert-danger">
+      {{ message }}
+    </div>
+  {% endfor %}
   <form method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      {{login_form.email(class_='form-control')}}
     </div>
     <div class="mb-3">
       <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+      {{login_form.password(class_='form-control')}}
+    </div>
+    <div class="mb-3">
+      <label for="">Remember</label>
+      {{login_form.remember}}
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
