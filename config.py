@@ -1,5 +1,5 @@
 import os
-
+import re
 
 class Config:
     """
@@ -8,7 +8,14 @@ class Config:
     # Data base config
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://obafemi:Bentamjay1@localhost/pitches'
     SECRET_KEY = os.environ.get("SECRET_KEY")
+    #  email configurations
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 465
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
 
 class ProdConfig(Config):
     """
@@ -33,6 +40,6 @@ class DevConfig(Config):
     DEBUG = True
 
 class TestConfig(Config):
-    pass
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://obafemi:Bentamjay1@localhost/pitches_test'
 
 config_options = {"development": DevConfig, "production": ProdConfig, 'test':TestConfig}

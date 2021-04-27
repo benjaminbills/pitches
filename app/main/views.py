@@ -20,7 +20,6 @@ def index():
 def new_pitch():
     form = PitchForm()
     print(form.errors)
-    # my_upvotes = Upvote.query.filter_by(pitch_id = Pitch.id)
     if form.is_submitted():
         print('submitted')
     if form.validate():
