@@ -37,7 +37,6 @@ def new_pitch():
     return render_template('pitch.html',form=form)
 
 @main.route('/pitches/<category>')
-@login_required
 def category(category):
     pitches = Pitch.query.filter_by(category=category).all()
     print(pitches)
