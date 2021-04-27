@@ -95,11 +95,13 @@ def new_comment(pitch_id):
 @main.route('/user/<username>')
 def profile(username):
     user = User.query.filter_by(username = username).first()
-
+    user_id = current_user._get_current_object().id
+    pitches = Pitch.query.filter_by(owner_id=user_id).all()
+    print(pitches)
     if user is None:
         abort(404)
 
-    return render_template("profile/profile.html", user = user)
+    return render_template("profile/profile.html", user = user, pitches=pitches)
 
 @main.route('/user/<username>/update',methods = ['GET','POST'])
 @login_required

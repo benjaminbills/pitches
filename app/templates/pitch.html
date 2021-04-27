@@ -1,12 +1,13 @@
 {% extends 'base.html'%}
+<!-- Styles block -->
 
+{% block styles%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+    
+{% endblock %}
 {% block content %}
-  <div class="container">
-    {% for message in get_flashed_messages() %}
-    <div class="alert alert-danger">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    {{ message }}
-    </div>
+  <div class="container pt-5">
   {% endfor %}
     <form method="POST">
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
@@ -16,7 +17,7 @@
       {{form.description(class_='form-control')}}
       <label for="category">Category</label>
       {{form.category(class_='form-control')}}
-      <input type="submit">
+      <input class="btn btn-info" type="submit">
     </form>
   </div>
 {% endblock%}

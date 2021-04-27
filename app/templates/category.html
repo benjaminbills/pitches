@@ -20,12 +20,17 @@
     <div class="card-body">
       <blockquote class="blockquote mb-0">
         <p>{{pitch.description}}</p>
-        <footer class="blockquote-footer">Pitched By <cite title="Source Title">Source Title</cite></footer>
+      {% if current_user.is_authenticated %}
+      <footer class="blockquote-footer">Pitched By <cite title="Source Title"><a href="{{url_for('main.profile', username= pitch.user.username)}}">{{pitch.user.username}}</a></cite></footer>
+      {%else%}
+      <footer class="blockquote-footer">Pitched By <cite title="Source Title">{{pitch.user.username}}</cite></footer>
+      {% endif %}
       </blockquote>
     </div>
     <div class="card-header">
-      <button class="btn">Upvote 0</button>
-      <button class="btn">Downvote 0</button>
+      <button class="btn"><a href="{{url_for('main.upvote',id = pitch.id)}}">Upvote {{pitch.upvote.count()}}</a></button>
+      <button class="btn"><a href="{{url_for('main.downvote',id = pitch.id)}}">downvote {{pitch.downvote.count()}}</a></button>
+      <button class="btn"><a href="{{url_for('main.new_comment',pitch_id = pitch.id)}}">Comment</a></button>
     </div>
   </div>
   {% endfor %}

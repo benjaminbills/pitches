@@ -16,7 +16,7 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(255),unique = True,index = True)
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     pitches = db.relationship("Pitch", backref="user", lazy = "dynamic")
-    bio = db.Column(db.String(255))
+    bio = db.Column(db.String())
     password_hash = db.Column(db.String(255))
     upvote = db.relationship('Upvote',backref='user',lazy='dynamic')
     downvote = db.relationship('Downvote',backref='user',lazy='dynamic')
