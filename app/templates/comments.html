@@ -13,6 +13,7 @@
 
 <div class="container pt-5">
   <p>{{pitch.description}}</p>
+  <p>{{pitch.user.username}}</p>
  <h2>Add your Comment</h2>
  <form method="POST">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>

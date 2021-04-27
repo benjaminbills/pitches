@@ -1,0 +1,12 @@
+{% extends 'base.html'%}
+
+{% block content %}
+  <div class="container">
+    <form method="POST">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+      <label for="title">Bio</label>
+      {{form.bio(class_='form-control')}}
+      {{form.submit}}
+    </form>
+  </div>
+{% endblock%}

@@ -38,7 +38,11 @@
     <div class="card-body">
       <blockquote class="blockquote mb-0">
         <p>{{pitch.description}}</p>
-        <footer class="blockquote-footer">Pitched By <cite title="Source Title">{{pitch.user.username}}</cite></footer>
+      {% if current_user.is_authenticated %}
+      <footer class="blockquote-footer">Pitched By <cite title="Source Title"><a href="{{url_for('main.profile', username= pitch.user.username)}}">{{pitch.user.username}}</a></cite></footer>
+      {%else%}
+      <footer class="blockquote-footer">Pitched By <cite title="Source Title">{{pitch.user.username}}</cite></footer>
+      {% endif %}
       </blockquote>
     </div>
     <div class="card-header">
