@@ -14,7 +14,6 @@ class User(UserMixin,db.Model):
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(255),index = True)
     email = db.Column(db.String(255),unique = True,index = True)
-    role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     pitches = db.relationship("Pitch", backref="user", lazy = "dynamic")
     bio = db.Column(db.String())
     password_hash = db.Column(db.String(255))
@@ -35,16 +34,6 @@ class User(UserMixin,db.Model):
         return check_password_hash(self.password_hash,password)
     def __repr__(self):
         return f'User {self.username}'
-
-class Role(db.Model):
-    __tablename__ = 'roles'
-
-    id = db.Column(db.Integer,primary_key = True)
-    name = db.Column(db.String(255))
-    users = db.relationship('User',backref = 'role',lazy="dynamic")
-
-    def __repr__(self):
-        return f'User {self.name}'
 
 
 class Pitch(db.Model):
