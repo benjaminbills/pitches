@@ -15,12 +15,15 @@
 
 Create start.sh file in the root directory.
 Add the following command to your start.sh file.
-export NEWS_API_KEY=<'GET KEY FROM NEWSAPI'>
-python3 manage.py server
+- export NEWS_API_KEY=<'GET KEY FROM NEWSAPI'>
+- export MAIL_USERNAME=<'YOUR EMAIL ADDRESS>
+- export MAIL_PASSWORD=<'YOUR EMAIL PASSWORD'>
+
+- python3 manage.py server
 
 Run `.\start.sh` for a dev server. Navigate to `http://localhost:5000/`. The app will automatically reload if you change any of the source files.
 
-## [Usage](https://the-source-news-app.herokuapp.com/)
+## [Usage](https://pitcheshotline.herokuapp.com/)
 
 ### Development
 
